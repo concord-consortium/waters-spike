@@ -2,7 +2,7 @@ import * as React from "react"
 import { useState } from "react"
 import { Scanner } from "./scanner"
 
-enum UploadState {
+export enum UploadState {
   NotScanning,
   Scanning,
   Uploading,
@@ -11,26 +11,37 @@ enum UploadState {
 }
 
 interface Props {
-  data: any
+  data: any;
+  onStateChange: (state: UploadState, err?: any) => void
 }
 
 export const Uploader = (props: Props) => {
   const [uploadState, setUploadState] = useState<UploadState>(UploadState.NotScanning)
+  const [uploadError, setUploadError] = useState();
+
+  const changeState = (newState: UploadState, err?: any) => {
+    setUploadState(newState)
+    setUploadError(err)
+    props.onStateChange(newState, err)
+  }
 
   const handleOnScanned = (url: string) => {
-    setUploadState(UploadState.Uploading);
-    fetch(url, {method: "POST", body: props.data})
+    changeState(UploadState.Uploading);
+    fetch(url, {method: "POST", body: JSON.stringify(props.data)})
       .then((resp) => {
-        const ok = resp.status === 200
-        setUploadState(ok ? UploadState.Uploaded : UploadState.UploadFailed)
+        if (resp.status === 200) {
+          changeState(UploadState.Uploaded)
+        } else {
+          resp.text().then((text) => changeState(UploadState.UploadFailed, text))
+        }
       })
-      .catch(() => {
-        setUploadState(UploadState.UploadFailed)
+      .catch((err) => {
+        changeState(UploadState.UploadFailed, err)
       })
   }
 
   const contents = () => {
-    const button = (label: string) => <button onClick={() => setUploadState(UploadState.Scanning)}>{label}</button>
+    const button = (label: string) => <button onClick={() => changeState(UploadState.Scanning)}>{label}</button>
 
     switch (uploadState) {
       case UploadState.NotScanning:
@@ -40,7 +51,9 @@ export const Uploader = (props: Props) => {
         return (
           <>
             <Scanner onScanned={handleOnScanned} />
-            <button onClick={() => setUploadState(UploadState.NotScanning)}>Cancel Upload</button>
+            <div>
+              <button onClick={() => changeState(UploadState.NotScanning)}>Cancel Upload</button>
+            </div>
           </>
         )
 
@@ -53,6 +66,7 @@ export const Uploader = (props: Props) => {
         return (
           <>
             <div className="error">Upload failed!</div>
+            <div>{uploadError ? uploadError.toString() : "No error info available!"}</div>
             {button("Try again...")}
           </>
         )

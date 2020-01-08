@@ -30,35 +30,14 @@ html, body {
       color: #fff;
       font-weight: bold;
     }
-    .value {
-      margin-bottom: 40px;
-      font-size: 48px;
+    .note {
+      margin: 20px 0;
       font-weight: bold;
     }
-    .slider {
-      width: 80vw;
-      margin: 0 10vw;
-    }
-    .uploader {
-      margin-top: 100px;
-      font-size: 24px;
-
-      div {
-        margin: 20px 0;
-      }
-
-      .error {
-        color: #f00;
-      }
-
-      button {
-        margin-top: 20px;
-        padding: 10px;
-        font-size: 24px;
-      }
-
-      canvas {
-        margin-top: 20px;
+    .uploadUrl {
+      textarea {
+        width: 80vw;
+        height: 20vh;
       }
     }
   }

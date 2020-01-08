@@ -21,7 +21,26 @@ export const Scanner = (props: Props) => {
   useEffect(() => {
     const video = document.createElement("video")
 
-    const tick = () => {
+    const startVideo = () => {
+      return new Promise((resolve, reject) => {
+        const waitForMediaDevices = () => {
+          if (navigator.mediaDevices) {
+            navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
+              .then((stream) => {
+                video.srcObject = stream
+                video.setAttribute("playsinline", "true") // required to tell iOS safari we don't want fullscreen
+                video.play()
+                resolve()
+              })
+          } else {
+            requestAnimationFrame(waitForMediaDevices)
+          }
+        }
+        waitForMediaDevices();
+      })
+    }
+
+    const scanVideo = () => {
       let keepScanning = true
 
       if (video.readyState === video.HAVE_ENOUGH_DATA) {
@@ -30,6 +49,9 @@ export const Scanner = (props: Props) => {
         if (canvasRef.current) {
           const canvasElement = canvasRef.current
           const canvas = canvasElement.getContext("2d")
+
+          canvasElement.height = video.videoHeight;
+          canvasElement.width = video.videoWidth;
 
           const drawLine = (begin, end, color) => {
             canvas.beginPath()
@@ -63,17 +85,11 @@ export const Scanner = (props: Props) => {
         }
       }
       if (keepScanning) {
-        requestAnimationFrame(tick)
+        requestAnimationFrame(scanVideo)
       }
     }
 
-    navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
-      .then((stream) => {
-        video.srcObject = stream
-        video.setAttribute("playsinline", "true") // required to tell iOS safari we don't want fullscreen
-        video.play()
-        requestAnimationFrame(tick)
-      })
+    startVideo().then(() => scanVideo())
   }, [])
 
   return (
