@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "parcel src/mobile/index.html"
+    "start": "parcel src/mobile.html src/lara.html",
+    "build": "parcel build src/mobile.html src/lara.html -d build --public-url ."
   },
   "keywords": [],
   "author": "",
@@ -20,6 +21,7 @@
   },
   "dependencies": {
     "jsqr": "^1.2.0",
+    "qrcode-svg": "^1.1.0",
     "react-range": "^1.4.7"
   }
 }
