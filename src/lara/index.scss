@@ -30,6 +30,11 @@ html, body {
       color: #fff;
       font-weight: bold;
     }
+    .error {
+      margin: 20px 0;
+      color: #f00;
+      font-weight: bold;
+    }
     .note {
       margin: 20px 0;
       font-weight: bold;
@@ -39,6 +44,11 @@ html, body {
         width: 80vw;
         height: 20vh;
       }
+    }
+    .value {
+      margin: 40px 0;
+      font-size: 88px;
+      font-weight: bold;
     }
   }
 }

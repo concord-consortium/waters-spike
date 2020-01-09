@@ -5,12 +5,14 @@
   "main": "index.js",
   "scripts": {
     "start": "parcel src/mobile.html src/lara.html",
+    "start:https": "parcel src/mobile.html src/lara.html --https",
     "build": "parcel build src/mobile.html src/lara.html -d build --public-url ."
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/js-base64": "^2.3.1",
     "@types/react": "^16.9.17",
     "@types/react-dom": "^16.9.4",
     "parcel": "^1.12.4",
@@ -20,6 +22,9 @@
     "typescript": "^3.7.4"
   },
   "dependencies": {
+    "firebase": "^7.6.1",
+    "iframe-phone": "^1.2.0",
+    "js-base64": "^2.5.1",
     "jsqr": "^1.2.0",
     "qrcode-svg": "^1.1.0",
     "react-range": "^1.4.7"

@@ -27,7 +27,16 @@ export const Uploader = (props: Props) => {
 
   const handleOnScanned = (url: string) => {
     changeState(UploadState.Uploading);
-    fetch(url, {method: "POST", body: JSON.stringify(props.data)})
+    const fetchOptions: RequestInit = {
+      method: "POST",
+      mode: "cors",
+      cache: "no-cache",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(props.data)
+    }
+    fetch(url, fetchOptions)
       .then((resp) => {
         if (resp.status === 200) {
           changeState(UploadState.Uploaded)
