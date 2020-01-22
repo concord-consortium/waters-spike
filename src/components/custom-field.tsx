@@ -13,7 +13,7 @@ const castToSpecificTypes = (formData, properties) => {
     for (let value of formData[propName] || []) {
       if ((type === "number" || type.indexOf("number") !== -1) && Number(value)) {
         result[propName].push(Number(value))
-      } else if ((type === "null" || type.indexOf("null") !== -1)  && (value === "null" || value === null || value === undefined)) {
+      } else if ((type === "null" || type.indexOf("null") !== -1) && (value === "null" || value === null || value === undefined)) {
         result[propName].push(null)
       } else {
         result[propName].push(value)
@@ -44,7 +44,7 @@ const DataTableField = (props) => {
       <table>
         <tbody>
         <tr>
-          { propNames.map(propName => <th key={propName}>{ properties[propName].title }</th>) }
+          {propNames.map(propName => <th key={propName}>{properties[propName].title}</th>)}
         </tr>
         {
           Array.from(new Array(numRows)).map((_, idx) =>
@@ -54,7 +54,7 @@ const DataTableField = (props) => {
                   <td key={propName}>
                     <input
                       type="text"
-                      value={ formData[propName] && formData[propName][idx] || "" }
+                      value={formData[propName] && formData[propName][idx] || ""}
                       onChange={event => handleInputChange(propName, idx, event.target.value)}
                     />
                   </td>)
@@ -111,7 +111,7 @@ const dataTableUiSchema = {
 const fields = { dataTable: DataTableField }
 
 const dataTableData = {
-  location: [ "Corner 1", "Corner 2", "Corner 3", "Corner 4", "Center" ]
+  location: ["Corner 1", "Corner 2", "Corner 3", "Corner 4", "Center"]
 }
 
 
@@ -121,9 +121,10 @@ export const CustomField = () => {
   return (
     <div className="form">
       <legend>Custom Data Table Field</legend>
-      <Form schema={dataTableSchema} uiSchema={dataTableUiSchema} fields={fields} formData={dataTableData} onSubmit={onSubmit}/>
+      <Form schema={dataTableSchema} uiSchema={dataTableUiSchema} fields={fields} formData={dataTableData}
+            onSubmit={onSubmit}/>
       <pre>
-        { JSON.stringify(result, null, 2) }
+        {JSON.stringify(result, null, 2)}
       </pre>
     </div>
   )

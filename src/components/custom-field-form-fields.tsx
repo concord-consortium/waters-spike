@@ -13,7 +13,7 @@ const castToSpecificTypes = (formData, properties) => {
     for (let value of formData[propName] || []) {
       if ((type === "number" || type.indexOf("number") !== -1) && Number(value)) {
         result[propName].push(Number(value))
-      } else if ((type === "null" || type.indexOf("null") !== -1)  && (value === "null" || value === null || value === undefined)) {
+      } else if ((type === "null" || type.indexOf("null") !== -1) && (value === "null" || value === null || value === undefined)) {
         result[propName].push(null)
       } else {
         result[propName].push(value)
@@ -43,98 +43,99 @@ const DataTableField = (props) => {
     <div className="data-table-field">
       <table>
         <tbody>
-          <tr>
-            { propNames.map(propName => <th key={propName}>{ properties[propName].title }</th>) }
-                </tr>
-  {
-    Array.from(new Array(numRows)).map((_, idx) =>
-      <tr key={idx}>
-        {
-          propNames.map(propName => {
-            const Field = props.registry.fields.NumberField
-            const prop = properties[propName]
-            const fieldSchema = {
-              type: prop.items.type,
-              readOnly: prop.readOnly
-            }
-            const data = formData[propName] && formData[propName][idx] ? formData[propName][idx] : ""
-            return <td key={propName}>
-              <Field
-                {...props}
-            schema={fieldSchema}
-            formData={data}
-            onChange={val => handleInputChange(propName, idx, val)}
-            registry={props.registry}
-            />
-            </td>
-          })
-        }
+        <tr>
+          {propNames.map(propName => <th key={propName}>{properties[propName].title}</th>)}
         </tr>
-    )
-  }
-  </tbody>
-  </table>
-  </div>
-)
+        {
+          Array.from(new Array(numRows)).map((_, idx) =>
+            <tr key={idx}>
+              {
+                propNames.map(propName => {
+                  const Field = props.registry.fields.NumberField
+                  const prop = properties[propName]
+                  const fieldSchema = {
+                    type: prop.items.type,
+                    readOnly: prop.readOnly
+                  }
+                  const data = formData[propName] && formData[propName][idx] ? formData[propName][idx] : ""
+                  return <td key={propName}>
+                    <Field
+                      {...props}
+                      schema={fieldSchema}
+                      formData={data}
+                      onChange={val => handleInputChange(propName, idx, val)}
+                      registry={props.registry}
+                    />
+                  </td>
+                })
+              }
+            </tr>
+          )
+        }
+        </tbody>
+      </table>
+    </div>
+  )
 }
 
-  const dataTableSchema = {
-    title: "Data Table",
-    type: "object",
-    properties: {
-      location: {
-        title: "Location",
-        type: "array",
-        readOnly: true,
-        items: {
-          type: "string"
-        }
-      },
-      temperature: {
-        title: "Temperature",
-        type: "array",
-        items: {
-          type: ["null", "number"]
-        }
-      },
-      light: {
-        title: "Light",
-        type: "array",
-        items: {
-          type: ["null", "number"]
-        }
-      },
-      humidity: {
-        title: "Humidity",
-        type: "array",
-        items: {
-          type: ["null", "number"]
-        }
+const dataTableSchema = {
+  title: "Data Table",
+  type: "object",
+  properties: {
+    location: {
+      title: "Location",
+      type: "array",
+      readOnly: true,
+      items: {
+        type: "string"
+      }
+    },
+    temperature: {
+      title: "Temperature",
+      type: "array",
+      items: {
+        type: ["null", "number"]
+      }
+    },
+    light: {
+      title: "Light",
+      type: "array",
+      items: {
+        type: ["null", "number"]
+      }
+    },
+    humidity: {
+      title: "Humidity",
+      type: "array",
+      items: {
+        type: ["null", "number"]
       }
     }
   }
+}
 
-  const dataTableUiSchema = {
-    "ui:field": "dataTable"
-  }
+const dataTableUiSchema = {
+  "ui:field": "dataTable"
+}
 
-  const fields = { dataTable: DataTableField }
+const fields = { dataTable: DataTableField }
 
-  const dataTableData = {
-    location: [ "Corner 1", "Corner 2", "Corner 3", "Corner 4", "Center" ]
-  }
+const dataTableData = {
+  location: ["Corner 1", "Corner 2", "Corner 3", "Corner 4", "Center"]
+}
 
 
-  export const CustomFieldFormFields = () => {
-    const [result, setResult] = useState<any>(dataTableData)
-    const onSubmit = data => setResult(data.formData)
-    return (
-      <div className="form">
-        <legend>Custom Data Table Field + JSONSchema Form Fields</legend>
-    <Form schema={dataTableSchema} uiSchema={dataTableUiSchema} fields={fields} formData={dataTableData} onSubmit={onSubmit}/>
-    <pre>
-    { JSON.stringify(result, null, 2) }
+export const CustomFieldFormFields = () => {
+  const [result, setResult] = useState<any>(dataTableData)
+  const onSubmit = data => setResult(data.formData)
+  return (
+    <div className="form">
+      <legend>Custom Data Table Field + JSONSchema Form Fields</legend>
+      <Form schema={dataTableSchema} uiSchema={dataTableUiSchema} fields={fields} formData={dataTableData}
+            onSubmit={onSubmit}/>
+      <pre>
+    {JSON.stringify(result, null, 2)}
     </pre>
     </div>
   )
-  }
+}

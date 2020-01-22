@@ -18,7 +18,7 @@ const ArrayFieldTemplate = props => {
   return (
     <div>
       <div className="column-header">{props.title}</div>
-      {props.items.map((element, idx) => <div key={idx}>{ element.children }</div>)}
+      {props.items.map((element, idx) => <div key={idx}>{element.children}</div>)}
     </div>
   );
 }
@@ -76,10 +76,10 @@ const dataTableUiSchema = {
 }
 
 const dataTableData = {
-  location: [ "Corner 1", "Corner 2", "Corner 3", "Corner 4", "Center" ],
-  temperature: [ null, null, null, null, null ],
-  light: [ null, null, null, null, null ],
-  humidity: [ null, null, null, null, null ]
+  location: ["Corner 1", "Corner 2", "Corner 3", "Corner 4", "Center"],
+  temperature: [null, null, null, null, null],
+  light: [null, null, null, null, null],
+  humidity: [null, null, null, null, null]
 }
 
 export const CustomTemplate = () => {
@@ -90,7 +90,7 @@ export const CustomTemplate = () => {
       <legend>Custom Field and Array Templates</legend>
       <Form schema={dataTableSchema} uiSchema={dataTableUiSchema} formData={result} onSubmit={onSubmit}/>
       <pre>
-        { JSON.stringify(result, null, 2) }
+        {JSON.stringify(result, null, 2)}
       </pre>
     </div>
   )

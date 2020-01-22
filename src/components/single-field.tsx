@@ -22,7 +22,7 @@ export const SingleField = () => {
       <legend>Single Field Form</legend>
       <Form schema={schema} uiSchema={uiSchema} onSubmit={onSubmit}/>
       <pre>
-        { JSON.stringify(result, null, 2) }
+        {JSON.stringify(result, null, 2)}
       </pre>
     </div>
   )

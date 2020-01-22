@@ -59,7 +59,7 @@ export const SimpleForm = () => {
     <div className="form">
       <Form schema={labelTabSchema} uiSchema={labelUiSchema} onSubmit={onSubmit}/>
       <pre>
-        { JSON.stringify(result, null, 2) }
+        {JSON.stringify(result, null, 2)}
       </pre>
     </div>
   )
