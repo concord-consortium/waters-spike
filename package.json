@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "parcel src/mobile.html src/lara.html",
+    "start": "parcel src/mobile.html src/lara.html src/components.html",
     "start:https": "parcel src/mobile.html src/lara.html --https",
     "build": "parcel build src/mobile.html src/lara.html -d build --public-url ."
   },
@@ -27,6 +27,7 @@
     "js-base64": "^2.5.1",
     "jsqr": "^1.2.0",
     "qrcode-svg": "^1.1.0",
+    "react-jsonschema-form": "^1.8.1",
     "react-range": "^1.4.7"
   }
 }
