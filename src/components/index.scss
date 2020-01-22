@@ -18,7 +18,25 @@ html, body {
   th {
     text-align: center;
   }
+  .form-group {
+    margin-bottom: 0;
+  }
   input {
     width: 130px;
+  }
+}
+
+.data-table-template {
+  .properties {
+    display: flex;
+
+    .form-group {
+      margin-bottom: 0;
+    }
+
+    .column-header {
+      font-weight: bold;
+      text-align: center;
+    }
   }
 }

@@ -20,7 +20,6 @@ const castToSpecificTypes = (formData, properties) => {
       }
     }
   })
-  console.log(result)
   return result
 }
 
@@ -30,12 +29,12 @@ const DataTableField = (props) => {
   const propNames = Object.keys(properties)
   const numRows = getNumRows(formData)
 
-  const handleInputChange = (propName, idx, event) => {
+  const handleInputChange = (propName, idx, value) => {
     const newFormData = Object.assign({}, formData)
     if (!newFormData[propName]) {
       newFormData[propName] = []
     }
-    newFormData[propName][idx] = event.target.value
+    newFormData[propName][idx] = value
     setFormData(newFormData)
     props.onChange(castToSpecificTypes(newFormData, properties))
   }
@@ -53,7 +52,11 @@ const DataTableField = (props) => {
               {
                 propNames.map(propName =>
                   <td key={propName}>
-                    <input type="text" value={ formData[propName] && formData[propName][idx] || "" } onChange={event => handleInputChange(propName, idx, event)}/>
+                    <input
+                      type="text"
+                      value={ formData[propName] && formData[propName][idx] || "" }
+                      onChange={event => handleInputChange(propName, idx, event.target.value)}
+                    />
                   </td>)
               }
             </tr>
@@ -72,6 +75,7 @@ const dataTableSchema = {
     location: {
       title: "Location",
       type: "array",
+      readOnly: true,
       items: {
         type: "string"
       }
@@ -94,7 +98,7 @@ const dataTableSchema = {
       title: "Humidity",
       type: "array",
       items: {
-        type: "string"
+        type: ["null", "number"]
       }
     }
   }

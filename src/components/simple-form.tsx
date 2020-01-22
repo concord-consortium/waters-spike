@@ -30,6 +30,9 @@ const labelTabSchema = {
 }
 
 const labelUiSchema = {
+  sensor: {
+    "ui:field": "sensorComponent"
+  },
   studySite: {
     "ui:options": {
       label: false
