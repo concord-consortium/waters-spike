@@ -111,7 +111,7 @@ export const App = () => {
 
         // connect to Firebase after initInteractive
         firebase.initializeApp({
-          apiKey: "AIzaSyCZjee1XNj6NZqFvuyoIa9GFBWgFH7vAjY",
+          apiKey: atob("QUl6YVN5Q1pqZWUxWE5qNk5acUZ2dXlvSWE5R0ZCV2dGSDd2QWpZ"),
           authDomain: "waters-spike.firebaseapp.com",
           databaseURL: "https://waters-spike.firebaseio.com",
           projectId: "waters-spike",
